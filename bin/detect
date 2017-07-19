@@ -1,0 +1,6 @@
+#!/bin/bash
+
+BUILD_DIR=$1
+
+echo "GeoLite2"
+exit 0
