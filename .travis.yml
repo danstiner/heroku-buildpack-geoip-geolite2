@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull heroku/buildpack-testrunner
+
+script:
+  - docker run -it -v "$PWD:/app/buildpack:ro" heroku/buildpack-testrunner
