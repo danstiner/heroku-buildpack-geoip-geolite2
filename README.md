@@ -1,5 +1,6 @@
-
 # Heroku Buildpack: GeoLite2 GeoIP data
+
+[![Build Status](https://travis-ci.org/danstiner/heroku-buildpack-geoip-geolite2.svg?branch=master)](https://travis-ci.org/danstiner/heroku-buildpack-geoip-geolite2)
 
 This is an unofficial [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 that installs the latest GeoLite2 City and Country free IP geolocation databases from
