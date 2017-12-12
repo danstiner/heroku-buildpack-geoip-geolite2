@@ -4,8 +4,8 @@
 
 This is an unofficial [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 that installs the latest GeoLite2 City and Country free IP geolocation databases from
-<a href="http://www.maxmind.com">MaxMind</a> and the libmaxminddb C library for fast lookups
-on the databases.
+<a href="http://www.maxmind.com">MaxMind</a> along with the [libmaxminddb](https://github.com/maxmind/libmaxminddb)
+C library for fast lookups in the databases.
 
 Note an older version of the Country database is available in any Heroku deploy via the packages `geoip-bin`, `geoip-database`, and `libgeoip1` listed on https://devcenter.heroku.com/articles/stack-packages
 
