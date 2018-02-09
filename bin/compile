@@ -54,7 +54,7 @@ else
     
     pushd "$WORK_DIR" > /dev/null
     ./configure --quiet --prefix "$LIBMAXMINDDB_CACHE_DIST_DIR"
-    make --silent
+    make >/dev/null || make
     make --silent check
     make --silent install
     popd
