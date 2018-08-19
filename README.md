@@ -1,6 +1,7 @@
 # Heroku Buildpack: GeoLite2 GeoIP data
 
 [![Build Status](https://travis-ci.org/danstiner/heroku-buildpack-geoip-geolite2.svg?branch=master)](https://travis-ci.org/danstiner/heroku-buildpack-geoip-geolite2)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdanstiner%2Fheroku-buildpack-geoip-geolite2.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdanstiner%2Fheroku-buildpack-geoip-geolite2?ref=badge_shield)
 
 This is an unofficial [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 that installs the latest GeoLite2 City and Country free IP geolocation databases from
@@ -32,3 +33,7 @@ GEOIP_COUNTRY=os.environ['GEOIP_GEOLITE2_COUNTRY_FILENAME']
 ```
 
 See https://docs.djangoproject.com/en/1.11/ref/contrib/gis/geoip2/ for installing the `geoip2` Python library and usage examples.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdanstiner%2Fheroku-buildpack-geoip-geolite2.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdanstiner%2Fheroku-buildpack-geoip-geolite2?ref=badge_large)
