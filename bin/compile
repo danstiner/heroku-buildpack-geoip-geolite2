@@ -42,10 +42,10 @@ mkdir -p "$LIBMAXMINDDB_CACHE_DIST_DIR"
 echo "       Downloading GeoLite2 City and Country data"
 
 # see https://dev.maxmind.com/geoip/geoipupdate/ (Direct Downloads version)
-wget --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
+wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
      "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
 
-wget --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
+wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
      "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
 
 echo "       Unzipping GeoLite2 City and Country data"
