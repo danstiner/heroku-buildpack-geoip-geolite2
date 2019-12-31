@@ -19,6 +19,7 @@ GEOIP_CACHE_DIR="$CACHE_DIR/geoip"
 LIBMAXMINDDB_CACHE_DIR="$GEOIP_CACHE_DIR/libmaxminddb"
 LIBMAXMINDDB_CACHE_DIST_DIR="$GEOIP_CACHE_DIR/libmaxminddb/dist"
 LIBMAXMINDDB_CACHE_VERSION_FILE="$LIBMAXMINDDB_CACHE_DIR/libmaxminddb-version"
+LICENSE_KEY=$GEOIP_LICENSE_KEY
 
 echo "-----> Installing GeoLite2 data and libmaxminddb from https://www.maxmind.com"
 
@@ -28,9 +29,10 @@ mkdir -p "$GEOIP_CACHE_DIR"
 mkdir -p "$LIBMAXMINDDB_CACHE_DIST_DIR"
 
 echo "       Downloading GeoLite2 City and Country data"
-
-wget -Nq -P "$GEOIP_CACHE_DIR" "https://geolite.maxmind.com/download/geoip/database/$GEOLITE2_CITY_TARBALL_FILENAME" 
-wget -Nq -P "$GEOIP_CACHE_DIR" "https://geolite.maxmind.com/download/geoip/database/$GEOLITE2_COUNTRY_TARBALL_FILENAME"
+wget -Nq -P "$GEOIP_CACHE_DIR" "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&suffix=tar.gz&license_key=$LICENSE_KEY"
+wget -Nq -P "$GEOIP_CACHE_DIR" "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&suffix=tar.gz&license_key=$LICENSE_KEY"
+mv "$GEOIP_CACHE_DIR/geoip_download?edition_id=GeoLite2-City&suffix=tar.gz&license_key=$LICENSE_KEY" "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME"
+mv "$GEOIP_CACHE_DIR/geoip_download?edition_id=GeoLite2-Country&suffix=tar.gz&license_key=$LICENSE_KEY" "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME"
 
 tar -xvf "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" --directory "$BUILD_DIST_SHARE_DIR" --no-anchored --strip-components=1 "$GEOLITE2_CITY_FILENAME"
 tar -xvf "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" --directory "$BUILD_DIST_SHARE_DIR" --no-anchored --strip-components=1 "$GEOLITE2_COUNTRY_FILENAME"
