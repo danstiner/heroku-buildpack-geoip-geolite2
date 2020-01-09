@@ -2,9 +2,21 @@
 
 set -e
 
+
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
+
+# see https://devcenter.heroku.com/articles/buildpack-api - during compilation
+# app env vars exist only as files within the ENV_VAR directory
+if [[ -s "$ENV_DIR/MAXMIND_LICENSE_KEY" ]]
+then
+    echo "-----> MAXMIND_LICENSE_KEY set - proceeding with installation"
+    MAXMIND_LICENSE_KEY=$(cat $ENV_DIR/MAXMIND_LICENSE_KEY)
+else
+    echo "-----> MAXMIND_LICENSE_KEY not set - ignoring installation"
+    exit 0
+fi
 
 LIBMAXMINDDB_VERSION=1.2.1
 GEOLITE2_CITY_FILENAME="GeoLite2-City.mmdb"
@@ -29,8 +41,14 @@ mkdir -p "$LIBMAXMINDDB_CACHE_DIST_DIR"
 
 echo "       Downloading GeoLite2 City and Country data"
 
-wget -Nq -P "$GEOIP_CACHE_DIR" "https://geolite.maxmind.com/download/geoip/database/$GEOLITE2_CITY_TARBALL_FILENAME" 
-wget -Nq -P "$GEOIP_CACHE_DIR" "https://geolite.maxmind.com/download/geoip/database/$GEOLITE2_COUNTRY_TARBALL_FILENAME"
+# see https://dev.maxmind.com/geoip/geoipupdate/ (Direct Downloads version)
+wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
+     "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
+
+wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
+     "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
+
+echo "       Unzipping GeoLite2 City and Country data"
 
 tar -xvf "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" --directory "$BUILD_DIST_SHARE_DIR" --no-anchored --strip-components=1 "$GEOLITE2_CITY_FILENAME"
 tar -xvf "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" --directory "$BUILD_DIST_SHARE_DIR" --no-anchored --strip-components=1 "$GEOLITE2_COUNTRY_FILENAME"
@@ -51,7 +69,7 @@ else
     tar -xf "$WORK_DIR/libmaxminddb-$LIBMAXMINDDB_VERSION.tar.gz" --directory "$WORK_DIR" --strip-components=1
 
     echo "       Building libmaxminddb-$LIBMAXMINDDB_VERSION"
-    
+
     pushd "$WORK_DIR" > /dev/null
     ./configure --quiet --prefix "$LIBMAXMINDDB_CACHE_DIST_DIR"
     make >/dev/null || make
