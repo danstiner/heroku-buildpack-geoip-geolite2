@@ -88,13 +88,13 @@ echo "       Set environment variables GEOIP_GEOLITE2_PATH, GEOIP_GEOLITE2_CITY_
 
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/geoip.sh
-export GEOIP_GEOLITE2_PATH="\$HOME/.geoip/share/"
+export GEOIP_GEOLITE2_PATH="$BUILD_DIST_DIR/share/"
 export GEOIP_GEOLITE2_CITY_FILENAME="$GEOLITE2_CITY_FILENAME"
 export GEOIP_GEOLITE2_COUNTRY_FILENAME="$GEOLITE2_COUNTRY_FILENAME"
-export LIBRARY_PATH="\$HOME/.geoip/lib:\$LIBRARY_PATH"
-export LD_LIBRARY_PATH="\$HOME/.geoip/lib:\$LD_LIBRARY_PATH"
-export PATH="\$HOME/.geoip/bin:\$PATH"
-export C_INCLUDE_PATH="\$HOME/.geoip/include:\$C_INCLUDE_PATH"
+export LIBRARY_PATH="$BUILD_DIST_DIR/lib:\$LIBRARY_PATH"
+export LD_LIBRARY_PATH="$BUILD_DIST_DIR/lib:\$LD_LIBRARY_PATH"
+export PATH="$BUILD_DIST_DIR/bin:\$PATH"
+export C_INCLUDE_PATH="$BUILD_DIST_DIR/include:\$C_INCLUDE_PATH"
 EOF
 
 cp $BUILD_DIR/.profile.d/geoip.sh ./export
